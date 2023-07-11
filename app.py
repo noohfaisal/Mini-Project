@@ -16,7 +16,7 @@ st.write("""
          """
          )
 
-file = st.file_uploader("Please upload an brain scan file", type=["jpg", "png"])
+file = st.file_uploader("Please upload an image", type=["jpg", "png"])
 
 st.set_option('deprecation.showfileUploaderEncoding', False)
 def import_and_predict(image_data, model):
