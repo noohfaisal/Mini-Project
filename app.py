@@ -2,14 +2,13 @@ import streamlit as st
 import tensorflow as tf
 import streamlit as st
 
-
+class_names = ['daisy', 'dandelion', 'rose', 'sunflower', 'tulip']
 @st.cache(allow_output_mutation=True)
 def load_model():
   model=tf.keras.models.load_model('my_model2.hdf5')
   return model
 with st.spinner('Model is being loaded..'):
   model=load_model()
-
 st.write("""
          # Flower Classification
          """
@@ -39,10 +38,9 @@ else:
     image = Image.open(file)
     st.image(image, use_column_width=True)
     prediction = import_and_predict(image, model)
-    score = tf.nn.softmax(predictions[0])
+    score = tf.nn.softmax(prediction[0])
     st.write(prediction)
     st.write(score)
-    print(
-    "This image most likely belongs to {} with a {:.2f} percent confidence."
-    .format(class_names[np.argmax(score)], 100 * np.max(score))
-)
+    disp=f"This image most likely belongs to {class_names[np.argmax(score)]} with a {100 * np.max(score) :2f} percent confidence."
+
+    st.write(disp)
